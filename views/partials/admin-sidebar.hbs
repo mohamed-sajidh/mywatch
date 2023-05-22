@@ -1,0 +1,111 @@
+ <div onload="navbarBackground()"></div>
+ <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" id="sidebar-adminhome" href="/admin/dashboard">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      
+
+      <li class="nav-item">
+        <a class="nav-link" id="sidebar-userTable" href="/admin/userTable">
+          <i class="bi bi-circle"></i>
+          <span>User Tables</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-productTable" href="/admin/productTable">
+          <i class="bi bi-circle"></i>
+          <span>Product Table</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-orderTable" href="/admin/orderTable">
+          <i class="bi bi-circle"></i>
+          <span>Order Table</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" id="sidebar-category" href="/admin/category">
+          <i class="bi bi-circle"></i>
+          <span>Category Management</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-offer" href="/admin/offer">
+          <i class="bi bi-circle"></i>
+          <span>Offer Management</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-productOffer" href="/admin/productOffer">
+          <i class="bi bi-circle"></i>
+          <span>Product Offer</span>
+        </a>
+      </li>
+
+
+      {{!-- <li class="nav-item">
+        <a class="nav-link " id="sidebar-categoryOffer" href="/admin/categoryOffer">
+          <i class="bi bi-circle"></i>
+          <span>Category Offer</span>
+        </a>
+      </li> --}}
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-inventory" href="/admin/inventory">
+          <i class="bi bi-circle"></i>
+          <span>Inventory Management</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link " id="sidebar-banner" href="/admin/banner">
+          <i class="bi bi-circle"></i>
+          <span>Banner Management</span>
+        </a>
+      </li>
+     
+
+
+
+      
+
+      
+
+      
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+
+
+   <script>
+      
+        console.log(window.location.href,'ddddddddddddd')
+        console.log(typeof(window.location.href))
+        const id= window.location.href.slice(28)
+        console.log(id)
+        document.getElementById('sidebar-'+id).style.backgroundColor = "#98b2e4";
+    
+        
+  </script>

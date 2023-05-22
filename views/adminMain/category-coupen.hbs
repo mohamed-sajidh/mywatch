@@ -1,0 +1,157 @@
+<div class="">
+  <div class=" row md-12">
+
+    <div class="col-md-12 ">
+      
+    
+
+  
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>General Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/product-coupen">Product</a></li>
+          <li class="breadcrumb-item">Table</li>
+          <li class="breadcrumb-item active"><a href="">Click Here</a></li>
+          
+        </ol>
+      </nav>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 100px;">
+        ADD COUPEN
+      </button>
+
+
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Default Table</h5>
+
+              <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col">Category</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each offer}}
+                  <tr>
+                    {{!-- <th scope="row">{{math @index "+"1}}</th> --}}
+                    {{!-- <th scope="row">{{@index}}</th> --}}
+                    <td>{{this.name}}</td>
+                    <td>{{this.discount}} % </td>
+                    
+                    <td><a href="/admin/delete-coupen/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to permanently delete {{this.name}} ?')">Delete</a></td>
+                  </tr>
+
+                  {{/each}}
+                  
+                  
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+
+        
+
+        
+
+          
+
+          
+
+        </div>
+
+        
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  
+
+  
+
+
+
+
+
+
+
+      {{!-- {{/each}} --}}
+      <div><span class="text-danger" style="margin-left: 300px;">{{oferEror}}</span></div>
+     
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form class="col-md-12" action="/admin/addCategoryCoupon" method="post" enctype="">
+
+
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">select category</label>
+                  <select name="category" id="pname" class="form-control">
+                      <option value="">--Please choose an option--</option>
+                {{#each category}}
+                      <option value="{{this._id}},{{this.name}}">{{this.name}}</option>
+                {{/each}}
+                    </select>
+                  {{!-- <input type="text" name="name" class="form-control  bg-white text-black" id="pname"
+                    aria-describedby="emailHelp" placeholder="Name"> --}}
+                </div>
+
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Discount</label>
+                  <input type="number" name="discount" class="form-control bg-white text-black" id="newPrice"
+                    aria-describedby="emailHelp" placeholder="Value" required>
+                </div>
+                
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Start Date</label>
+                  <input type="date" name="startdate" class="form-control bg-white text-black" id="stock"
+                    aria-describedby="emailHelp" placeholder="Stock count" required>
+                </div>
+
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Exp Date</label>
+                  <input type="date" name="endingdate" class="form-control bg-white text-black" id="stock"
+                    aria-describedby="emailHelp" placeholder="Stock count" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              </form>
+
+
+            </div>
+
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+

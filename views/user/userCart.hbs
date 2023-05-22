@@ -1,0 +1,250 @@
+<!-- End Header Area -->
+
+<!-- Start Banner Area -->
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>{{page}}</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/cart">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Cart Area =================-->
+{{#if products}}
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each products}}
+
+                        
+
+
+                        <tr>
+
+                            <td>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <a href="/productDetails?id={{this.product._id}}"><img
+                                                src="/product-pictures/{{this.product.img1}}" alt=""
+                                                style="width: 100px;"></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <p>{{this.product.name}}</p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                
+                                <h5 id="sigle-product">₹ {{this.product.offerPrice}}</h5>
+                            </td>
+
+
+
+                            <td>
+
+                                <button class="cart-item-count mr-3"
+                                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}', -1 , '{{this.product.price}}' )">-</button>
+                                <span id="{{this.product._id}}">{{this.quantity}}</span>
+                                <button class="cart-item-count ml-3"
+                                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}', 1, '{{this.product.price}}' )">+</button>
+
+                            </td>
+
+                            <td>
+                                <button class="cart-item-count mr-2,btn btn-danger"
+                                    onclick="removeCartProduct('{{this._id}}','{{this.product._id}}','{{this.user}}')">Remove</button>
+                            </td>
+                        </tr>
+
+                        
+
+
+
+
+                        {{/each}}
+
+
+                        <tr class="bottom_button">
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <h5>Total</h5>
+                            </td>
+                            <td>
+
+                                <h5><span id="total">₹ {{total}}</span></h5>
+
+                            </td>
+                        </tr>
+
+
+                        <tr class="out_button_area">
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <div class="checkout_btn_inner d-flex align-items-center">
+                                    <a class="gray_btn" href="/">Continue Shopping</a>
+
+                                    {{#if stockFull}}
+                                    <h3 style="color: red;">product is Out Of Stock</h3>
+                                    {{else}}
+
+                                    <a class="primary-btn" href="/checkout">checkout</a>
+                                    {{/if}}
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+
+                        </tr>
+
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+{{else}}
+<p class="text-center mt-5 mb-5">No items in cart</p>
+{{/if}}
+
+{{!-- <tr>
+    <td>
+
+    </td>
+    <td>
+
+    </td>
+    <td>
+        <h5>Total</h5>
+    </td>
+    <td>
+        <h5>$2160.00</h5>
+    </td>
+</tr> --}}
+<!--================End Cart Area =================-->
+
+<!-- start footer Area -->
+
+<!-- End footer Area -->
+
+<script>
+
+
+    function changeQuantity(cartId, prodId, userId, count, price) {
+
+        console.log("called")
+
+        let quantity = parseInt(document.getElementById(prodId).innerHTML)
+        count = parseInt(count)
+        $.ajax(
+            {
+                url: '/changeProductQuantity',
+                data: {
+                    user: userId,
+                    cart: cartId,
+                    product: prodId,
+                    count: count,
+                    quantity: quantity
+
+                },
+                method: 'post',
+                success: (response) => {
+                    console.log(response, "this")
+
+                    if (response.stock) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'out of stock...',
+                            text: 'you exceed the stock!',
+                            footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                    }
+                    else {
+                        if (response.removeProduct) {
+                            Swal.fire(
+                                'Are you sure?',
+                                'You want to delete this this!',
+                                'warning'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload()
+                                }
+
+                            });
+
+                        }
+                        else {
+                            let total = $('#total').html()
+                            total = parseInt(price * count)
+                            $('#total').html(total)
+
+                            document.getElementById(prodId).innerHTML = quantity + count
+                            document.getElementById('total').innerHTML = response.total;
+
+                        }
+                    }
+
+
+
+
+                }
+            }
+        )
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

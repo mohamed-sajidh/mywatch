@@ -1,0 +1,172 @@
+<!-- start banner Area -->
+
+<div id="carouselExampleControls" class="carousel slide" style=" width: 1500px; " data-ride="carousel">
+	<div class="carousel-inner">
+		{{#each banner}}
+		<div class="carousel-item{{#if @first}} active{{/if}}">
+			<img class="d-block w-100" src="/product-pictures/{{this.img1}}" alt="Banner {{@index}}">
+		</div>
+		{{/each}}
+	</div>
+	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>
+
+
+
+
+<h3 style="padding-left: 30px; padding-top: 20px;">select category</h3>
+
+	{{#each productCategory}}
+<form action="/filter" method="post">
+	<button type="submit" class="btn btn-light" name="category" value="{{this.name}}" style="padding-left: 30px;">{{this.name}}</button>
+</form>
+	{{/each}}
+
+
+
+<form action="/search" method="post">
+<div class="input-group" style="margin-top: -10px;">
+  <input type="search" name="name" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="margin-left: 1250px; ">
+  <button type="submit" class="btn btn-outline-primary"  >search</button>
+</div>
+</form>
+  <span style="color:crimson">{{error}}</span>
+
+
+
+{{!-- owl-carousel active-product-area section_gap --}}
+<section class="">
+	<!-- single product slide -->
+
+	<div class="single-product-slider">
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-lg-6 text-center">
+					<div class="section-title">
+						<h1 style="margin-top: -25px;">NEW COLLECTIONS</h1>
+						<p>Taking Toughness to the Limit</p>
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="row">
+				<!-- single product -->
+				{{#each product}}
+				<div class="col-lg-3 col-md-6">
+
+					<div class="single-product">
+						<a href="/product-detail?id={{this._id}}"><img class="img-fluid"
+								src="/product-pictures/{{this.img1}}" alt=""></a>
+						<div class="product-details">
+							<h6>{{this.name}}</h6>
+							<h6>{{this.model}}</h6>
+							<div class="d-flex flex-row">
+								<h6> <del>₹{{this.price}}</del></h6>
+								<h6 style="font-size: 1.2em; padding-left: 10px;">{{this.discount}}% off</h6>
+							</div>
+							<h6 style="font-size: 1.4em;">₹ {{this.offerPrice}}</h6>
+
+
+							{{#if this.stock }}
+
+							<div class="prd-bottom">
+
+								<a class="social-info" onclick="addToCart('{{this._id}}')">
+									<span class="lnr lnr-move"></span>
+									<p class="hover-text">Add To Cart</p>
+								</a>
+
+
+								<a class="social-info">
+									<span class="lnr lnr-heart"></span>
+									<p class="hover-text">Wishlist</p>
+								</a>
+
+
+
+								<a href="" class="social-info">
+									<form action="/product-details" method="post">
+										<input type="text" name="id" value="{{this._id}}" hidden>
+										<span class="lnr lnr-move"></span>
+										<button type="submit" class="hover-text"
+											style="border: none; background:transparent ">View more</button>
+									</form>
+								</a>
+
+
+
+							</div>
+							{{else}}
+							<a class="social-info">
+								<p class="hover-text">currently unavailable</p>
+							</a>
+							{{/if}}
+						</div>
+
+					</div>
+
+				</div>
+				{{/each}}
+
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center mb-5">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						{{#each pages}}
+						<li class="page-item"><a class="page-link" href="/productPagination?id={{this}}"
+								aria-label="page {{this}}">{{this}}</a></li>
+						{{/each}}
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+
+
+				<!-- single product -->
+
+				<div class="col-lg-3 col-md-6">
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- single product slide -->
+	<div class="single-product-slider">
+		
+	</div>
+</section>
+
+</body>
+
+</html>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<style>
+	del {
+		text-decoration: line-through;
+		color: black;
+	}
+</style>

@@ -1,0 +1,433 @@
+<!-- Start Header Area -->
+
+
+
+<!-- End Header Area -->
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Checkout Area =================-->
+<section class="checkout_area section_gap">
+    <div class="container">
+
+        <div class="cupon_area">
+            <div class="check_title">
+                <h2>Have a coupon? <a href="/checkCoupen">Click here to enter your code</a></h2>
+            </div>
+
+            <input type="text" placeholder="Enter coupon code" id="couponInput">
+            <div><span id="errorMsg" style="color: red;"></span></div>
+
+            <a class="tp_btn" onclick="coupon()">Apply Coupon</a>
+
+        </div>
+
+
+
+
+
+
+        <div class="billing-select mb-20">
+            <label style="padding-top: 5px; padding-left: 20px;"> <abbr class="required" title="required"></abbr>
+            </label>
+            <select onchange="getAddress()" placeholder="Please" id="address">
+                <option>Select Your Address</option>
+
+                {{#each address}}
+
+                <option value={{this.Address.userAddressId}}>{{this.Address.userAddressId}},{{this.Address.town}},
+                    {{this.Address.streetNumber}}, {{this.Address.pincode}} </option>
+
+                {{/each}}
+
+            </select>
+
+        </div>
+
+
+
+
+
+
+        <div style="margin-left: 650px;">
+            <a class="tp_btn" href="/addAddress">Add Address</a>
+        </div>
+
+        <h4 style="padding-left: 300px;">Enter Delivery Address</h4>
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+
+
+
+
+
+
+
+
+                    <form class="row contact_form" action="/place-order" method="post" 
+                        id="checkout-form">
+
+
+
+
+                        {{!-- <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="add1" name="add1"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            <span class="placeholder" data-placeholder="Name"></span>
+                        </div> --}}
+
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="name" name="uname"
+                                value="{{this.userDetails.username}}" placeholder="Name" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'name'" required>
+                        </div>
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="number" class="form-control" id="number" name="number"
+                                value="{{this.userDetails.phone}}" placeholder="Phone number"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone number'" required>
+                        </div>
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{this.userDetails.email}}" placeholder="Email" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'name'" required>
+                        </div>
+
+
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="number" class="form-control" id="home number"
+                                value="{{this.address.houseNumber}}" name="houseNumber" placeholder="Home number"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Home number'" required>
+                        </div>
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="number" class="form-control" id="street number"
+                                value="{{this.address.streetNumber}}" name="streetNumber" placeholder="street number"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'street number'" required>
+                        </div>
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="town" value="{{this.address.town}}" name="town"
+                                placeholder="Town/City" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Town'" required>
+                        </div>
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="state" name="state"
+                                value="{{this.address.state}}" placeholder="state" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'state'" required>
+                        </div>
+
+
+
+
+                        <div class="col-md-12 form-group p_star">
+                            <input type="number" class="form-control" id="zip" value="{{this.address.pincode}}"
+                                name="pincode" placeholder="Postcode/ZIP" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'zip'" required>
+                        </div>
+
+
+
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option5" name="payment-method" value="COD">
+                                <label for="f-option5">COD</label>
+                                <div class="check"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="payment_item active">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option6" name="payment-method" value="RAZORPAY">
+                                <label for="f-option6">Razorpay </label>
+                                <img src="img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option7" name="payment-method" value="PAYPAL">
+                                <label for="f-option7">Paypal </label>
+                                <img src="img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option8" name="payment-method" value="WALLET">
+                                <label for="f-option8">Wallet</label>
+                                <img src="img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <input type="text" name="userId" id="" value="{{this.userDetails._id}}" hidden>
+
+
+
+
+                        <button class="primary-btn" onclick="" type="submit">Place Order</button>
+
+
+                    </form>
+
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+
+                        <ul class="list">
+                            <li><a href="#">Product <span class="middle">Quantity</span> <span class="last">Price</span>
+                                </a></li>
+                            {{#each products}}
+                            <li><a href="#">{{this.product.name}}<span class="middle">x{{this.quantity}}</span> <span
+                                        class="last">₹ {{this.product.price}}</span></a></li>
+                            {{/each}}
+                            <li><a href="#">Total <span id="totalAmount">₹ {{total}}</span></a></li>
+                        </ul>
+
+
+                        <div id="Details" hidden>
+                            <ul class="list list_2">
+
+
+                                <li><a href="#">Original Price<span id="totalPrice">₹ {{total}}</span></a></li>
+                                <li><a href="#">Discount Price <span id="discountPrice">₹ {{total}}</span></a></li>
+                                <li><a href="#">You Saved <span id="savedPrice">₹ {{total}}</span></a></li>
+
+                            </ul>
+                        </div>
+
+
+
+
+
+                        {{!-- <a class="primary-btn" href="#">Place Order</a> --}}
+
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</section>
+<!--================End Checkout Area =================-->
+
+<!-- start footer Area -->
+
+<!-- End footer Area -->
+
+
+
+<script>
+
+    
+
+
+
+
+
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+
+                if(response.payErr){
+
+                    Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'Please select payment method!',
+})
+
+                }else{
+
+                Swal.fire(
+                    'Good job!',
+                    'Your order is placed successfully!',
+                    'success'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        if (response.codSuccess) {
+                            location.href = '/order-completion'
+                        }
+                        else if (response.walletSuccess) {
+                            location.href = '/order-completion'
+                        }
+
+
+                        else if (response.pay) {
+
+                            location.replace(response.linkto)
+                        } else {
+                            razorpayPayment(response)
+                        }
+                    }
+                })
+
+                }
+
+            }
+        })
+    })
+
+
+
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_PG0ec8LXfIoGFG",
+            "amount": order.amount,
+            "currency": "INR",
+            "name": "MyWatch",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id,
+            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+
+            "handler": function (response) {
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/order-completion'
+                }
+                else {
+                    alert("payment failed")
+                }
+            }
+
+        })
+    }
+
+
+
+    function coupon() {
+        let coupenName = document.getElementById('couponInput').value
+        console.log(couponInput, "comeeeeee")
+        $.ajax({
+            url: '/coupen-verify',
+            data: {
+                coupon: coupenName
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.verify) {
+                    document.getElementById('totalAmount').innerHTML = response.amount
+                    document.getElementById("Details").hidden = false
+                    document.getElementById('totalPrice').innerHTML = response.originalPrice
+                    document.getElementById('discountPrice').innerHTML = response.discountAmount
+                    document.getElementById('savedPrice').innerHTML = response.savedAmount
+                }
+                else {
+                    if (response.invalidDate) {
+                        document.getElementById('errorMsg').innerHTML = response.invalidDateMsg
+                        setTimeout(() => {
+                            response.invalidDateMsg = null
+                        }, 3000)
+                    }
+                    else if (response.minAmount) {
+                        document.getElementById('errorMsg').innerHTML = response.minAmountMsg
+                        setTimeout(() => {
+                            response.minAmountMsg = null
+                            location.reload()
+                        }, 3000)
+                    }
+                    else if (response.invalidCoupen) {
+                        document.getElementById('errorMsg').innerHTML = response.invalidCoupenMsg
+                        setTimeout(() => {
+                            response.invalidCoupenMsg = null
+                            location.reload()
+                        }, 3000)
+                    }
+                }
+            }
+        })
+    }
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

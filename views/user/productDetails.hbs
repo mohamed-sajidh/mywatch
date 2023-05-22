@@ -1,0 +1,104 @@
+
+	<!-- End Header Area -->
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Product Details Page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/click">product-details</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area" >
+		<div class="container" >
+			<div class="row s_product_inner" style="padding-bottom: 400px;">
+				<div class="col-lg-6" >
+					<div class="s_Product_carousel" >
+
+
+						<div class="single-prd-item" >
+							<img class="img-fluid zoomable" src="/product-pictures/{{product.img1}}" alt="" style="width: 500px; height:auto" data-zoom-image="/product-pictures/{{product.img1}}">
+						</div>
+
+						<div class="single-prd-item">
+							<img class="img-fluid" src="/product-pictures/{{product.img2}}" alt="" style="width: 500px; height:auto" >
+						</div>
+
+						<div class="single-prd-item">
+							<img class="img-fluid" src="/product-pictures/{{product.img3}}" alt="" style="width: 500px; height:auto">
+						</div>
+
+					</div>
+				</div>
+                
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>{{product.name}}</h3>
+                        <h3>{{product.model}}</h3>
+						<div class="d-flex flex-row">
+						<h2> ₹{{product.offerPrice}}</h2>
+						<h1 style="padding-left: 20px; text-decoration: line-through; padding-top: 10px;"> ₹{{product.price}}</h1>
+						<h1 style="padding-left: 20px; color: green; padding-top: 10px;"> {{product.discount}}% off</h1>
+						</div>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> {{product.category}} </a></li>
+							
+						</ul>
+						<p>{{product.description}}</p>
+
+					
+						   
+						
+
+						<div class="card_area d-flex align-items-center">
+
+							<button type="button" onclick="addToCart('{{product._id}}')" class="primary-btn"> Add to Cart </button>
+							<a href="/buyNow">
+								<button type="button"  class="primary-btn"> Buy Now </button>
+							</a>
+
+							
+							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+<link rel="stylesheet" href="path/to/jquery.zoom.css">
+<script src="path/to/jquery.min.js"></script>
+<script src="path/to/jquery.zoom.min.js"></script>
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.zoomable').zoom();
+    });
+</script>
+
+
+
+

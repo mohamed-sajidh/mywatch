@@ -1,0 +1,28 @@
+<section>
+    {{#each oneOrderProduct}}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card text-black">
+          <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+          <img src="/product-pictures/{{this.product.img1}}"
+            class="card-img-top" alt="Apple Computer" />
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title">{{this.product.name}}</h5>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between">
+                <span>Model </span><span>:{{this.product.model}}</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Description</span><span>{{this.product.description}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</section>

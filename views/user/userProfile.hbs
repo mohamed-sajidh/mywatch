@@ -1,0 +1,248 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Profile</h1>
+    {{!-- <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Profile</li>
+      </ol>
+    </nav> --}}
+  </div><!-- End Page Title -->
+
+  <section class="section profile" style="margin-top: 12%;">
+    <div class="row">
+      {{!-- <div class="col-xl-4">
+
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+           
+            <h2>{{this.userProfile.username}}</h2>
+            <h3>Web Designer</h3>
+
+          </div>
+        </div>
+
+      </div> --}}
+
+      <div class="col-xl-8">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab"
+                  data-bs-target="#profile-overview">Overview</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Add Address</button>
+              </li>
+
+
+              {{!-- <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
+                  Password</button>
+              </li> --}}
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#view-offers">View
+                  Offers</button>
+              </li>
+
+            </ul>
+            <div class="tab-content pt-2">
+
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+
+
+                <h5 class="card-title">Profile Details</h5>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                  <div class="col-lg-9 col-md-8">{{this.userProfile.username}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Phone</div>
+                  <div class="col-lg-9 col-md-8">{{this.userProfile.phone}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Email</div>
+                  <div class="col-lg-9 col-md-8">{{this.userProfile.email}}</div>
+                </div>
+
+              </div>
+
+
+              {{!---------------------------- ADD ADDRESS -----------------------------}}
+
+              <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                
+                <form action="/submit" method="post">
+
+                  <div class="row mb-3">
+                    
+                    <div class="col-md-8 col-lg-9">
+                      
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="uname" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="uname" type="text" class="form-control" id="uname" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="email" type="email" class="form-control" id="email" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="number" type="number" class="form-control" id="phone" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="houseNumber" class="col-md-4 col-lg-3 col-form-label">House Number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="houseNumber" type="number" class="form-control" id="houseNumber" required>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-3">
+                    <label for="streetNumber" class="col-md-4 col-lg-3 col-form-label">Street Number</label>
+                    <div class="col-md-8 col-lg-9">
+
+                      <input type="text" name="userId" id="" value="{{userId}}" hidden>
+
+                      <input name="streetNumber" type="number" class="form-control" id="streetNumber" required>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row mb-3">
+                    <label for="town" class="col-md-4 col-lg-3 col-form-label">Town/City</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="town" type="text" class="form-control" id="town" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="state" type="text" class="form-control" id="state" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pincode</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="pincode" type="number" class="form-control" id="pincode" required>
+                    </div>
+                  </div>
+
+
+
+                  <div class="text-center">
+                    <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form><!-- End Profile Edit Form -->
+
+              </div>
+
+
+
+
+
+
+              {{!-- <div class="tab-pane fade pt-3" id="profile-change-password">
+                <!-- Change Password Form -->
+                <form>
+
+                  <div class="row mb-3">
+                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="password" type="password" class="form-control" id="currentPassword">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="newpassword" type="password" class="form-control" id="newPassword">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                  </div>
+                </form><!-- End Change Password Form -->
+
+              </div> --}}
+
+
+
+              <div class="tab-pane fade pt-3" id="view-offers">
+
+                <div class="row">
+                  {{#each coupen}}
+                  <div class="col-sm-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <h3 class="card-title">{{this.name}}</h3>
+                        <p class="card-text">Exp Date: {{this.endingDate}}</p>
+                        <h5 class="text-success">Code: {{this.code}}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  {{/each}}
+
+                </div>
+
+                {{!-- {{#each coupen}}
+                <div class="card" style="width: 18rem;"> --}}
+                  {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+                  {{!-- <div class="card-body">
+                    <h4 class="card-title" class="text-primary">{{this.name}}</h4>
+                    <h4 class="card-text" class="text-success">{{this.code}}</h4>
+                  </div>
+                </div>
+                {{/each}} --}}
+              </div>
+
+
+
+
+
+            </div><!-- End Bordered Tabs -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->

@@ -1,0 +1,244 @@
+
+
+	
+</head>
+
+<body>
+
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="userStyle/img/login.jpg" alt="">
+						<div class="hover">
+							<h4>New to our website?</h4>
+							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						{{#if errMessage}}
+					<h6 style="color: red;">{{errMessage}}</h6>
+					{{else}}
+						<h3>Sign Up to enter</h3>
+						{{/if}}
+						
+						<form class="row login_form" action="/signup" method="post" id="contactForm" >
+						    <div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" onkeyup="validateUsername()">
+								<span id="user-error" style="float: right; color:crimson"></span>
+							</div>
+						    <div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" onkeyup="validateEmail()">
+								<span id="email-error" style="float: right; color:crimson"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="number" class="form-control" id="phone" name="phone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" onkeyup="validatePhone()">
+								<span id="phone-error" style="float: right; color:crimson"></span>
+							</div>
+							
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="uniquePassword" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" onkeyup="passwordStrength()" >
+								<span id="password-err" style="float: right; color:crimson"></span>
+							</div>
+
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="uniqueConfirmPassword" name="confirmPassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" onkeyup="validatePasswords()" >
+								<span id="trueMessage" class="text-danger"></span>
+							</div>
+
+							<p id="password-no-err" style="color:#00808d;font-size: 0.8em;">Passwords must have at least one digit!</p>
+							<p id="password-small-err"  style="color:#00808d;font-size: 0.8em;">Passwords must have at least one lowercase!</p>
+							<p id="password-capital-err"  style="color:#00808d;font-size: 0.8em;">Passwords must have at least one uppercase!</p>
+							<p id="password-special-err"  style="color:#00808d;font-size: 0.8em;">Passwords must have at least one special character!</p>
+							<p id="password-length-err"  style="color:#00808d;font-size: 0.8em;">Passwords must have at least 6 characters!</p>
+
+							
+
+							
+							<div class="col-md-12 form-group">
+								<button type="submit" id="submit" value="submit" class="primary-btn" onclick="return validateSignup()">sign up</button>	
+								<span id="submt-error" style="float: right; color:crimson"></span>							
+							</div>
+							
+
+							
+							
+							
+							
+
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+
+	<script>
+
+	var passwordErr = document.getElementById('password-err')	
+    var passwordnoErr= document.getElementById('password-no-err')
+    var passwordcapitalErr= document.getElementById('password-capital-err')
+    var passwordsmallErr= document.getElementById('password-small-err')
+    var passwordspecialErr= document.getElementById('password-special-err')
+    var passwordlengthErr = document.getElementById('password-length-err')
+
+	var usernameError = document.getElementById('user-error')
+	var emailError = document.getElementById('email-error')
+	var phoneError = document.getElementById('phone-error')
+	var submitError = document.getElementById('submt-error')
+
+	
+	function validatePasswords() {
+    
+    let password = document.getElementById("uniquePassword").value;
+	let confirmPassword = document.getElementById("uniqueConfirmPassword").value;
+
+    if(password === confirmPassword){
+		document.getElementById("trueMessage").innerHTML = "pasword is true"
+		passwordStrength()
+	}
+	else{
+		document.getElementById("trueMessage").innerHTML = "pasword is false"
+		//document.querySelector("#submit").disabled = true;
+
+	}
+  }
+
+
+
+
+  function passwordStrength(){
+
+        var password = document.getElementById("uniquePassword").value;
+
+        if(password.length==0){
+            passwordErr.innerHTML='Password requied!'
+            return false
+        }else{
+            passwordErr.innerHTML='';
+    
+        }
+
+const lowermsg='Passwords must have at least one lowercase!'
+const uppermsg='Passwords must have at least one uppercase!'
+const numbermsg='Passwords must have at least one digit!'
+const specialmsg='Passwords must have at least one special character!'
+const lengthmsg= 'Passwords must have at least 6 characters!'
+
+const lowercase = /^(?=.*[a-z]).+$/
+const uppercase=  /^(?=.*[A-Z]).+$/
+const number= /\d/
+const specialchr=/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+const length= /^.{6,}$/
+
+check(number,passwordnoErr,numbermsg)
+check(lowercase,passwordsmallErr,lowermsg)
+check(uppercase,passwordcapitalErr,uppermsg)
+check(specialchr,passwordspecialErr,specialmsg)
+check(length,passwordlengthErr,lengthmsg)
+
+
+
+function check(regex,ERROR,MESSAGE){
+const status = regex.test(password)
+        if(status==false){
+            ERROR.innerHTML=MESSAGE
+            return false
+        }else{
+             ERROR.innerHTML='';
+        }
+    }
+        return true
+      if(password.length<6){
+        
+      } 
+}
+
+
+
+
+function validateUsername(){
+	var username = document.getElementById('username').value;
+
+	if(username.length == 0){
+		usernameError.innerHTML = "username required"
+		return false
+	}
+
+	if(!username.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)){
+		usernameError.innerHTML = "invalid username"
+		return false
+	}
+	else{
+		usernameError.innerHTML = ""
+		return true
+	}
+}
+
+
+function validateEmail(){
+	var email = document.getElementById('email').value
+
+	if(email.length == 0){
+		emailError.innerHTML = "email required"
+		return false
+	}
+
+	if(!email.match(/^[a-zA-Z0-9.!#$%&’+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/)){
+		emailError.innerHTML = "invalid email"
+		return false
+	}
+	else{
+		emailError.innerHTML = ""
+		return true
+	}
+}
+
+
+function validatePhone(){
+	var phone = document.getElementById('phone').value
+
+	if(phone.length == 0){
+		phoneError.innerHTML = "phone number required"
+		return false
+	}
+
+	if(!phone.match(/^\d+$/)){
+		phoneError.innerHTML = "invalid phone number"
+		return false
+	}
+	else{
+		phoneError.innerHTML = ""
+		return true
+	}
+}
+
+
+function validateSignup() {
+    
+    if (!validateUsername() || !validateEmail() || !validatePassword() || !validatePhone()) {
+
+        submitError.innerHTML = 'Please fill the fields to submit';
+        setTimeout(function () { submitError.style.display = 'none'; }, 4000)
+        return false;
+    }
+
+}
+
+
+</script>
+
+
+	
+</body>
+
+</html>
+

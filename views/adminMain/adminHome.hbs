@@ -1,0 +1,488 @@
+<body>
+
+  <!-- ======= Header ======= -->
+
+
+  <!-- ======= Sidebar ======= -->
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        {{!-- <div class="col-lg-8"> --}}
+          <div class="row">
+
+
+            {{!-------------------------------------- total order ----------------------------------------}}
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders<span></span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{totalOrders}}</h6>
+                      <span class="text-success small pt-1 fw-bold">Orders</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {{!------------------------------------- end ---------------------------------------------}}
+
+
+
+            {{!-------------------------------------- TOTAL customers --------------------------------------------}}
+
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Customers <span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{totalUsers}}</h6>
+                      <span class="text-danger small pt-1 fw-bold">users</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{!-------------------------------------------- end ----------------------------------------}}
+
+
+            {{!------------------------------------- TOTAL PRODUCTS ------------------------------------}}
+
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Products <span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-watch"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{productCount}}</h6>
+                      <span class="text-danger small pt-1 fw-bold">Products</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{!----------------------------------------- END ----------------------------------------------}}
+
+
+            {{!--------------------------------------- DAILY SALES -------------------------------------}}
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Daily Sale <span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <span class="rupee-symbol">&#x20b9;</span>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{dailySales}}</h6>
+                      <span class="text-success small pt-1 fw-bold">Rupees</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{!-------------------------------------------- END ----------------------------------------------}}
+
+
+
+
+            {{!------------------------------------------ WEEKLY SALES ---------------------------------------}}
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Weekly Sale <span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <span class="rupee-symbol">&#x20b9;</span>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{weeklySales}}</h6>
+                      <span class="text-success small pt-1 fw-bold">Rupees</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{!------------------------------------------ END ---------------------------------------------------}}
+
+
+            {{!---------------------------------------- YEARLY SALES --------------------------------------------}}
+
+
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Yearly Sale <span></span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <span class="rupee-symbol">&#x20b9;</span>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{yearlySales}}</h6>
+                      <span class="text-success small pt-1 fw-bold">Rupees</span> <span
+                        class="text-muted small pt-2 ps-1"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            {{!------------------------------------- END --------------------------------------}}
+
+
+
+
+            {{!----------------------------- graph ----------------------------------------------}}
+
+
+
+
+
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Payment Method</h5>
+
+                  <!-- Pie Chart -->
+                  <div id="pieChart"></div>
+
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#pieChart"), {
+                        series: [{{ data.PAYPAL }}, {{ data.COD }}, {{ data.RAZORPAY }} , {{ data.WALLET }}],
+                      chart: {
+                      height: 350,
+                      type: 'pie',
+                      toolbar: {
+                        show: true
+                      }
+                    },
+                      labels: ['PAYPAL', 'COD', 'RAZORPAY', 'WALLET']
+                  }).render();
+                });
+                  </script>
+                  <!-- End Pie Chart -->
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            {{!------------------------------- end ---------------------------------------------------}}
+
+
+
+            {{!-------------------------------- ORDER STATUS ----------------------------------}}
+
+
+
+
+
+            <div class="col-lg-12" id="invoiceGraph">
+              <div class="card">
+                <div class="card-body">
+                  <button type="button" class="btn btn-success" style="margin-left: 1000px; margin-top: 10px;"
+                    onclick="exportToPDF()">Download</button>
+                  <h5 class="card-title">Order Status</h5>
+                  <!-- Donut Chart -->
+                  <div id="donutChart"></div>
+
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#donutChart"), {
+                        series: [{{ orderData.PLACED }}, {{ orderData.DELIVERED }}, {{ orderData.CANCEL }} , {{ orderData.PENDING }} , {{ orderData.RETURNED }} , {{ orderData.ORDERCANCEL }}],
+                      chart: {
+                      height: 350,
+                      type: 'donut',
+                      toolbar: {
+                        show: true
+                      }
+                    },
+                      labels: ['PLACED', 'DELIVERED', 'CANCEL', 'PENDING', 'RETURNED', 'ORDERCANCEL '],
+                  }).render();
+                });
+                  </script>
+                  <!-- End Donut Chart -->
+
+                </div>
+              </div>
+            </div>
+
+            {{!-------------------------------------- END ------------------------------}}
+
+
+            {{!---------------------------------- TOTAL SALES -----------------------------------------}}
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <button type="button" class="btn btn-success" style="margin-left: 1000px; margin-top: 10px;"
+                    onclick="generatePDF()">Download</button>
+                  <h5 class="card-title">Yearly Sales <span></span></h5>
+                  <table class="table table-borderless datatable" id="invoice">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Sales</th>
+                        <th scope="col">Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {{#each yearly}}
+                      <tr>
+
+                        <td>{{@index}}</td>
+                        <td>{{this._id}}</td>
+                        <td>{{this.count}}</td>
+                        <td>{{this.total}}</td>
+
+                      </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {{!--------------------------------- end ------------------------------------------}}
+
+
+
+            {{!-------------------- DAILY SALES ----------------------------------}}
+
+
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <button type="button" class="btn btn-success" style="margin-left: 1000px; margin-top: 10px;"
+                    onclick="exportToPDF()">Download</button>
+                  <h5 class="card-title">Daily Sales <span></span></h5>
+                  <table class="table table-borderless datatable" id="invoice2">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Sales</th>
+                        <th scope="col">Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {{#each daily}}
+                      <tr>
+
+                        <td>{{@index}}</td>
+                        <td>{{this._id}}</td>
+                        <td>{{this.count}}</td>
+                        <td>{{this.total}}</td>
+
+                      </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            {{!-- ------------------------end ----------------------------}}
+
+
+
+            {{!-------------------------- weekly sales-------------------------- --}}
+
+
+            <div class="col-12" id="invoice">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <button type="button" class="btn btn-success" style="margin-left: 1000px; margin-top: 10px;"
+                    onclick="exportsToPDF()">Download</button>
+                  <h5 class="card-title">Weekly Sales <span></span></h5>
+                  <table class="table table-borderless datatable" id="invoice3">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Sales</th>
+                        <th scope="col">Total Revenue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {{#each weekly}}
+                      <tr>
+
+                        <td>{{@index}}</td>
+                        <td>{{this._id}}</td>
+                        <td>{{this.count}}</td>
+                        <td>{{this.total}}</td>
+
+                      </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            {{!-------------------------end -------------------------------------------}}
+
+
+
+
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+
+        </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+
+  <script>
+
+
+
+
+    function generatePDF() {
+      const element = document.getElementById('invoice');
+      element.style.width = '700px';
+      element.style.height = '900px';
+      let opt = {
+        margin: 10,
+        filename: 'loyalpaws.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: 'mm', orientation: 'landscape' }
+      }
+      html2pdf().set(opt)
+        .from(element)
+        .save();
+    }
+
+
+
+    function exportToPDF() {
+      const element = document.getElementById('invoice2');
+      element.style.width = '700px';
+      element.style.height = '900px';
+      let opt = {
+        margin: 10,
+        filename: 'loyalpaws.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: 'mm', orientation: 'landscape' }
+      }
+      html2pdf().set(opt)
+        .from(element)
+        .save();
+    }
+
+
+    function exportsToPDF() {
+      const element = document.getElementById('invoice3');
+      element.style.width = '700px';
+      element.style.height = '900px';
+      let opt = {
+        margin: 10,
+        filename: 'loyalpaws.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: 'mm', orientation: 'landscape' }
+      }
+      html2pdf().set(opt)
+        .from(element)
+        .save();
+    }
+
+  </script>
+
+
+
+
+
+
+</body>
+
+
+
+</html>
+
+{{!-- function exportToPDF() {
+const element = document.getElementById('invoice');
+element.style.width = '100%';
+element.style.height = '900px';
+let opt = {
+margin: 10,
+filename: 'Ecomerce.pdf',
+image: { type: 'jpeg', quality: 1 },
+html2canvas: { scale: 1 },
+jsPDF: { unit: 'mm', orientation: 'landscape' }
+}
+html2pdf().set(opt)
+.from(element)
+.save();
+} --}}
