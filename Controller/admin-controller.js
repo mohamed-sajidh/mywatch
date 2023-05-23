@@ -20,25 +20,21 @@ var password = 12345;
 module.exports = {
 
     adminLogin(req, res) {
-
-        res.render('adminMain/adminLogin' , { layout: 'loginlayout' })
+        let error = req.query.error
+        res.render('adminMain/adminLogin' , { layout: 'loginlayout',error })
     },
 
 
     validation (req , res , next) {
         adminHelpers.adminLoginPost(req.body).then((response) => {
             console.log(response , "this is responseeeeeeeeeeeeeeeee");
-            next()
+            req.session.adminLoggin=true
+            res.redirect('/admin')
         })
         .catch(() => {
-            res.render('adminMain/adminLogin', { error: 'invalid username or password' })
+            let error = 'invalid username or password'
+            res.redirect('/admin/login?error='+error)
         })
-    },
-    
-
-
-    adminValidation(req, res) {
-        res.redirect('/admin/adminhome')
     },
 
 
@@ -59,12 +55,11 @@ module.exports = {
         res.render('adminMain/adminHome', { layout: 'admin-layoutnew' , yearly , daily , weekly , totalOrders , totalUsers , dailySales , weeklySales , yearlySales , productCount , data , orderData})
     },
 
-    dashboard(req, res) {
-        res.redirect('/admin/adminhome')
-    },
+  
 
     signOut(req, res) {
-        res.redirect('/admin')
+        req.session.adminLoggin=false
+        res.redirect('/admin/login')
     },
 
 
@@ -391,7 +386,9 @@ module.exports = {
         productHelpers.listProduct(prodId).then((response) => {
             res.redirect('/admin/productTable')
         })
-    })
+    }),
+
+
         
     
 

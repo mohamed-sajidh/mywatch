@@ -15,7 +15,7 @@ const flash = require('connect-flash');
 var app = express();
 var upload = multer({ dest: 'uploads/' })
 const Handlebars = require('handlebars')
-
+const nocache = require("nocache");
 
 // app.engine('hbs',hbs.engine({extname:'hbs', defaultLayout:'layout',layoutsDir:_dirname+'/views/layout/',partialsDir:_dirname+'/views/Partials/',
 // helpers: {
@@ -40,7 +40,7 @@ const Handlebars = require('handlebars')
 // }
 // ))
 
-
+app.use(nocache());
 app.use(bodyParser.json())
 // app.use(fileUpload())
 // view engine setup

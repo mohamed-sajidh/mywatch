@@ -1,31 +1,15 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>
+<script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 <div class="">
   <div class=" row md-12">
 
     <div class="col-md-12 ">
 
-      {{!-- <div class="card" style="width: 18rem;">
-        <div class="card-body">
-
-          <h6 class="card-subtitle mb-2 text-muted">{{this.name}}</h6>
-          <p class="card-text">CODE:{{this.code}}</p>
-          <p class="card-text">DISCOUNT:{{this.value}}</p>
-          <p class="card-text">START DATE:{{this.startDate}}</p>
-          <p class="card-text">END DATE:{{this.endingDate}}</p>
-          <p class="card-text">MIN AMOUNT:{{this.minAmount}}</p>
-          <p class="card-text">MAX AMOUNT:{{this.maxAmount}}</p>
-
-        </div>
-      </div> --}}
-
-
-
-
-
-
-
-
-
-
+      
 
 
       <main id="main" class="main">
@@ -57,10 +41,10 @@
                   <h5 class="card-title">Default Table</h5>
 
                   <!-- Default Table -->
-                  <table class="table">
+                  <table class="table" id="offerTable">
                     <thead>
                       <tr>
-                        {{!-- <th scope="col">#</th> --}}
+                        <th scope="col">sl.no</th>
                         <th scope="col">Name</th>
                         <th scope="col">Code</th>
                         <th scope="col">Discount</th>
@@ -75,7 +59,7 @@
                     <tbody>
                       {{#each coupen}}
                       <tr>
-                        {{!-- <th scope="row">{{@index}}</th> --}}
+                        <td></td>
                         <td>{{this.name}}</td>
                         <td>{{this.code}}</td>
                         <td>{{this.value}}</td>
@@ -83,14 +67,14 @@
                         <td>{{this.endingDate}}</td>
                         <td>{{this.minAmount}}</td>
                         <td>{{this.maxAmount}}</td>
-                        <td>
-                          <form action="/admin/edit-product" method="post">
+                        <td class="d-flex ">
+                          <form class="me-3" action="/admin/edit-product" method="post">
                             <input type="text" value="{{this._id}}" name="id" id="" hidden>
                             <button class="btn btn-primary" type="submit">Edit</button>
                           </form>
 
-                        </td>
-                        <td><button id="remove-coupen" onclick="removeCoupen('{{this._id}}')"
+                  
+                        <button id="remove-coupen" onclick="removeCoupen('{{this._id}}')"
                             class="btn btn-danger">Delete</button></td>
                         {{!-- <td><a href="/admin/delete-coupen/{{this._id}}" class="btn btn-danger"
                             onclick="return confirm('Are you sure you want to permanently delete {{this.name}} ?')">Delete</a>
@@ -222,6 +206,29 @@
       }
     })
   }
+
+
+
+  $(document).ready(function () {
+      var t = $('#offerTable').DataTable({
+        columnDefs: [
+          {
+            searchable: false,
+            orderable: false,
+            targets: 0,
+          },
+        ],
+        order: [[1, 'asc']],
+      });
+
+      t.on('order.dt search.dt', function () {
+        let i = 1;
+
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+          this.data(i++);
+        });
+      }).draw();
+    });
 </script>
 
 

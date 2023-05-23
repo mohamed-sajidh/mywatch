@@ -6,7 +6,7 @@ var userHelpers=require('../helpers/user-helpers');
 const client = require("twilio")
 const Swal = require('sweetalert2')
 // const stripe = require("./stripe")
-
+const {userSession} = require('../config/session')
 
 
 const {userHome,userLogin,signupPage,loginButton,loginHome,goToHome,signupButton,homeButton,logoutButton,productDetails,verifyLogin,cart,addToCart,changeQuantity,removeProduct,proceedToCheckout,placeOrder,orderCompletion,orderTable,viewOrders,myOrder , addToCartProductDetails , 
@@ -59,21 +59,21 @@ router.get('/view-order',verifyLogin,viewOrders)
 
 router.get('/orderTables',verifyLogin,orderTable)
 
-router.get('/my-order',myOrder)
+router.get('/my-order',verifyLogin,myOrder)
 
-router.get('/addToCart-ProductDetails', addToCartProductDetails)
+router.get('/addToCart-ProductDetails', verifyLogin,addToCartProductDetails)
 
-router.get('/profile' , userProfile)
+router.get('/profile' , verifyLogin,userProfile)
 
 router.post('/submit' , submitAddress)
 
 router.post('/fillAddress' , fillAddress)
 
-router.get('/buyNow' , buyNow)
+router.get('/buyNow' , verifyLogin ,buyNow)
 
 router.get('/productPagination', productPagination)
 
-router.get('/orderDetails' , myOrderss)
+router.get('/orderDetails' ,verifyLogin, myOrderss)
 
 router.get('/cancelorder/:id' , orderCancel)
 
@@ -95,11 +95,11 @@ router.post('/number-submit' , mobileNumberSubmit)
 
 router.post('/password-submit' , newPasswordSubmit)
 
-router.get('/addAddress' , addNewAddress)
+router.get('/addAddress' ,verifyLogin, addNewAddress)
 
-router.get('/wallet' , wallet)
+router.get('/wallet' ,verifyLogin, wallet)
 
-router.get('/checkCoupen' , checkCoupen)
+router.get('/checkCoupen' , verifyLogin,checkCoupen)
 
 router.post('/coupen-verify' , coupenVerify)
 

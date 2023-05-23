@@ -50,7 +50,7 @@
                 <thead>
 
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">sl.no</th>
                     <th scope="col">Name</th>
                     <th scope="col">Date</th>
                     <th scope="col">Status</th>
@@ -69,7 +69,7 @@
                     
                   
                   <tr>
-                    <th scope="row">{{@index}}</th>
+                    <th scope="row"></th>
                     <td>{{this.deliveryDetails.name}}</td>
                     <td>{{this.date}}</td>
                     <td>{{this.status}}</td>
@@ -162,8 +162,27 @@
 
 
 
+    
+
     $(document).ready(function () {
-      $('#orderTable').DataTable();
+        var t = $('#orderTable').DataTable({
+            columnDefs: [
+                {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0,
+                },
+            ],
+            order: [[1, 'asc']],
+        });
+
+        t.on('order.dt search.dt', function () {
+            let i = 1;
+
+            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
     });
 
 

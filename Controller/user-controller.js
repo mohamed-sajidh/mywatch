@@ -63,48 +63,52 @@ module.exports = {
         if (req.session.loggedIn) {
             res.redirect('/')
         } else {
-            res.render('user/userLogin')
+            let error = req.query.error
+            res.render('user/userLogin', { error })
         }
     },
 
 
     sessionCheck: async (req, res, next) => {
         if (req.session.user) {
-          try {
-            const user = await userHelpers.getUsers(req.session.user._id);
-            if (user.isBlocked) {
-              req.session.loggedIn = false;
-              req.session.user = null;
-              res.redirect('/login');
-            } else {
-              next();
+            try {
+                const user = await userHelpers.getUsers(req.session.user._id);
+                if (user.isBlocked) {
+                    req.session.loggedIn = false;
+                    req.session.user = null;
+                    res.redirect('/login');
+                } else {
+                    next();
+                }
+            } catch (error) {
+                console.error(error);
+                res.redirect('/login');
             }
-          } catch (error) {
-            console.error(error);
+        } else {
             res.redirect('/login');
-          }
-        } else { 
-          res.redirect('/login');
         }
     },
-      
+
 
     loginButton(req, res) {
 
         userHelpers.doLogin(req.body).then((response) => {
             if (response.status) {
                 if (response.user.isBlocked) {
-                    res.render('user/userLogin', { error: 'you are blocked' })
+                    let error = 'you are blocked'
+                    res.redirect('/login?error=' + error);
                 } else {
                     req.session.loggedIn = true
                     req.session.user = response.user
                     res.redirect('/')
                 }
             } else {
-                res.render('user/userLogin', { error: 'you are blocked' })
+                let error = 'you are blocked'
+                res.redirect('/login?error=' + error);
             }
         }).catch(() => {
-            res.render('user/userLogin', { error: 'invalid username or password' })
+            let error = 'invalid username or password'
+            res.redirect('/login?error=' + error);
         })
     },
 
@@ -139,16 +143,16 @@ module.exports = {
             req.session.user = response
             res.render('user/userLogin')
         })
-        .catch((response) => {
-            if(response.emailExists){
-                req.flash('userExists', 'This Email is  already registered with us! !')
-                res.redirect('/signup')
-            }
-            if (response.mobileExists) {
-                req.flash('userExists', 'This Mobile number is already registered with us!')
-                res.redirect('/signup')
-            }
-        })
+            .catch((response) => {
+                if (response.emailExists) {
+                    req.flash('userExists', 'This Email is  already registered with us! !')
+                    res.redirect('/signup')
+                }
+                if (response.mobileExists) {
+                    req.flash('userExists', 'This Mobile number is already registered with us!')
+                    res.redirect('/signup')
+                }
+            })
 
     },
 
@@ -195,10 +199,8 @@ module.exports = {
 
     verifyLogin(req, res, next) {
         if (req.session.loggedIn) {
-            console.log("log aanu");
             next()
         } else {
-            console.log("logalla")
             res.redirect('/login')
         }
     },
@@ -213,15 +215,15 @@ module.exports = {
             console.log('hitted');
             if (req.session.stockFull) {
                 userHelpers.getTotalAmount(req.session.user._id).then((total) => {
-                    res.render('user/userCart', { products, user, total, page: 'Shopping Cart' , stockFull : true})
+                    res.render('user/userCart', { products, user, total, page: 'Shopping Cart', stockFull: true })
                 })
                 req.session.stockFull = false
-            }else{
+            } else {
                 userHelpers.getTotalAmount(req.session.user._id).then((total) => {
                     res.render('user/userCart', { products, user, total, page: 'Shopping Cart' })
                 })
             }
-            
+
         } else {
 
             res.render('user/userCart', { user, page: 'Cart is empty' })
@@ -252,7 +254,7 @@ module.exports = {
         }
     },
 
-    
+
 
     async changeQuantity(req, res, next) {
         let prodId = req.body.product
@@ -295,127 +297,127 @@ module.exports = {
 
     async proceedToCheckout(req, res) {
         try {
-          let products = await userHelpers.getCartProducts(req.session.user._id);
-          let address = await userHelpers.getAddress(req.session.user._id);
-      
-          let flag = false;
-          for (let i = 0; i < products.length; i++) {
-            if (products[i].product && products[i].quantity > products[i].product.stock) {
-              flag = true;
-              break;
+            let products = await userHelpers.getCartProducts(req.session.user._id);
+            let address = await userHelpers.getAddress(req.session.user._id);
+
+            let flag = false;
+            for (let i = 0; i < products.length; i++) {
+                if (products[i].product && products[i].quantity > products[i].product.stock) {
+                    flag = true;
+                    break;
+                }
             }
-          }
-      
-          if (flag) {
-            req.session.stockFull = true;
-            res.redirect('/cart');
-          } else {
-            let total = await userHelpers.getTotalAmount(req.session.user._id);
-            res.render('user/userCheckout', { user: req.session.user, total, products, address });
-          }
+
+            if (flag) {
+                req.session.stockFull = true;
+                res.redirect('/cart');
+            } else {
+                let total = await userHelpers.getTotalAmount(req.session.user._id);
+                res.render('user/userCheckout', { user: req.session.user, total, products, address });
+            }
         } catch (error) {
-          res.render('user/userCheckout', { user: req.session.user });
+            res.render('user/userCheckout', { user: req.session.user });
         }
-      },
+    },
 
 
 
     placeOrder: (async (req, res) => {
 
-        if(!req.body['payment-method']){
+        if (!req.body['payment-method']) {
 
-            res.json({payErr:true})
-            
-        }else{       
+            res.json({ payErr: true })
 
-        let address = await userHelpers.getAllAddress(req.session.user._id)
+        } else {
 
-        let products = await userHelpers.getCartProductList(req.session.user._id)
+            let address = await userHelpers.getAllAddress(req.session.user._id)
 
-        if (req.session.amount) {
-            var totalPrice = req.session.amount
-        }
-        else if (!req.session.amount) {
-            var totalPrice = await userHelpers.getTotalAmount(req.session.user._id)
-        }
+            let products = await userHelpers.getCartProductList(req.session.user._id)
 
-        let balance = await walletHelpers.WALLET_BALANCE(req.session.user.email)
-
-        userHelpers.placeOrder(req.body, products, totalPrice, req.session.user._id, balance).then(async (ordId) => {
-
-            for (let i = 0; i < products.length; i++) {
-                await productHelpers.updateStock(products[i].item, products[i].quantity)
+            if (req.session.amount) {
+                var totalPrice = req.session.amount
+            }
+            else if (!req.session.amount) {
+                var totalPrice = await userHelpers.getTotalAmount(req.session.user._id)
             }
 
-            req.session.orderId = ordId;
+            let balance = await walletHelpers.WALLET_BALANCE(req.session.user.email)
 
-            if (req.body['payment-method'] == "COD") {
+            userHelpers.placeOrder(req.body, products, totalPrice, req.session.user._id, balance).then(async (ordId) => {
 
-                res.json({ codSuccess: true })
-            }
-            else if (req.body['payment-method'] == "RAZORPAY") {
+                for (let i = 0; i < products.length; i++) {
+                    await productHelpers.updateStock(products[i].item, products[i].quantity)
+                }
 
-                userHelpers.generateRazorpay(ordId, totalPrice).then((response) => {
+                req.session.orderId = ordId;
 
-                    res.json(response)
-                })
-            }
+                if (req.body['payment-method'] == "COD") {
 
-            else if (req.body['payment-method'] == "PAYPAL") {
-                var payment = {
-                    "intent": "sale",
-                    "payer": {
-                        "payment_method": "paypal"
-                    },
-                    "redirect_urls": {
-                        "return_url": "http://localhost:3000/order-completion",
-                        "cancel_url": "http://localhost:3000"
-                    },
-                    "transactions": [{
-                        "amount": {
-                            "currency": "USD",
-                            "total": totalPrice
+                    res.json({ codSuccess: true })
+                }
+                else if (req.body['payment-method'] == "RAZORPAY") {
+
+                    userHelpers.generateRazorpay(ordId, totalPrice).then((response) => {
+
+                        res.json(response)
+                    })
+                }
+
+                else if (req.body['payment-method'] == "PAYPAL") {
+                    var payment = {
+                        "intent": "sale",
+                        "payer": {
+                            "payment_method": "paypal"
                         },
-                        "description": ordId
-                    }]
-                };
+                        "redirect_urls": {
+                            "return_url": "http://localhost:3000/order-completion",
+                            "cancel_url": "http://localhost:3000"
+                        },
+                        "transactions": [{
+                            "amount": {
+                                "currency": "USD",
+                                "total": totalPrice
+                            },
+                            "description": ordId
+                        }]
+                    };
 
-                userHelpers.createPay(payment).then((transaction) => {
+                    userHelpers.createPay(payment).then((transaction) => {
 
-                    var id = transaction.id
-                    var links = transaction.links
-                    var counter = links.length
+                        var id = transaction.id
+                        var links = transaction.links
+                        var counter = links.length
 
-                    while (counter--) {
-                        if (links[counter].rel == 'approval_url') {
-                            transaction.pay = true
-                            transaction.linkto = links[counter].href
-                            transaction.orderId = ordId
-                            userHelpers.changePaymentStatus(ordId).then(() => {
-                                res.json(transaction)
-                            })
+                        while (counter--) {
+                            if (links[counter].rel == 'approval_url') {
+                                transaction.pay = true
+                                transaction.linkto = links[counter].href
+                                transaction.orderId = ordId
+                                userHelpers.changePaymentStatus(ordId).then(() => {
+                                    res.json(transaction)
+                                })
+                            }
                         }
-                    }
-                })
+                    })
 
-            }
-            else if (req.body['payment-method'] == "WALLET") {
-                walletHelpers.WALLET_BALANCE(req.session.user.email).then((result) => {
-                    if (result.balance < totalPrice) {
-                        res.json({ walletSuccess: false })
-                    } else {
-                        orderHelpers.updatePaymentMethod(req.session.orderId, req.body['payment-method'])
-                        orderHelpers.CHANGE_STATUS(req.session.orderId, (state = "placed"))
-                        walletHelpers.UPDATE_WALLET(req.session.user.email, -totalPrice)
-                        res.json({ walletSuccess: true })
-                    }
-                })
+                }
+                else if (req.body['payment-method'] == "WALLET") {
+                    walletHelpers.WALLET_BALANCE(req.session.user.email).then((result) => {
+                        if (result.balance < totalPrice) {
+                            res.json({ walletSuccess: false })
+                        } else {
+                            orderHelpers.updatePaymentMethod(req.session.orderId, req.body['payment-method'])
+                            orderHelpers.CHANGE_STATUS(req.session.orderId, (state = "placed"))
+                            walletHelpers.UPDATE_WALLET(req.session.user.email, -totalPrice)
+                            res.json({ walletSuccess: true })
+                        }
+                    })
 
-            }
+                }
 
 
-        })
-    }
+            })
+        }
     }),
 
 
@@ -497,38 +499,38 @@ module.exports = {
         res.redirect('/checkout')
     },
 
-    
+
 
     productPagination: async (req, res) => {
         try {
-          let user = req.session.user;
-          let pageCount = req.query.id || 1;
-          let pageNum = parseInt(pageCount);
-          let limit = 4;
+            let user = req.session.user;
+            let pageCount = req.query.id || 1;
+            let pageNum = parseInt(pageCount);
+            let limit = 4;
 
-          let cartCount = null;
-          if (req.session.user) {
+            let cartCount = null;
+            if (req.session.user) {
                 cartCount = await userHelpers.getCartCount(user._id)
             }
-      
-          let product = await userHelpers.viewTotalProduct(pageNum, limit);
-          let products = await productHelpers.getAllProduct();
-          let banner = await productHelpers.allBanner()
-          let productCategory = await productHelpers.getCategory()
-          let totalProducts = products.length;
-          let pages = [];
-      
-      
-          for (let i = 1; i <= Math.ceil(totalProducts / limit); i++) {
-            pages.push(i);
-          }
-      
-          res.render('user/userHome', { user, product, pages , banner , productCategory , cartCount});
+
+            let product = await userHelpers.viewTotalProduct(pageNum, limit);
+            let products = await productHelpers.getAllProduct();
+            let banner = await productHelpers.allBanner()
+            let productCategory = await productHelpers.getCategory()
+            let totalProducts = products.length;
+            let pages = [];
+
+
+            for (let i = 1; i <= Math.ceil(totalProducts / limit); i++) {
+                pages.push(i);
+            }
+
+            res.render('user/userHome', { user, product, pages, banner, productCategory, cartCount });
         } catch (error) {
-          // Handle error appropriately
+            // Handle error appropriately
         }
-      },
-      
+    },
+
 
     myOrderss: (async (req, res) => {
         let user = req.session.user
@@ -755,7 +757,7 @@ module.exports = {
     }),
 
 
-    filterCategory : (async (req , res) => {
+    filterCategory: (async (req, res) => {
         let category = req.body.category
         let user = req.session.user
         let cartCount = null;
@@ -763,16 +765,16 @@ module.exports = {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
         }
 
-        let product =await productHelpers.getProduct(category)
+        let product = await productHelpers.getProduct(category)
         let productCategory = await productHelpers.getCategory()
         let banner = await productHelpers.allBanner()
 
-        res.render('user/userHome', { product , productCategory , banner , user , cartCount})
+        res.render('user/userHome', { product, productCategory, banner, user, cartCount })
     }),
 
 
 
-    searchProduct : (async (req , res) => {
+    searchProduct: (async (req, res) => {
         let name = req.body.name
         let user = req.session.user
         let cartCount = null;
@@ -784,15 +786,15 @@ module.exports = {
         let productCategory = await productHelpers.getCategory()
         let banner = await productHelpers.allBanner()
 
-        if(product){
-            res.render('user/userHome', { product , productCategory , banner , user , cartCount})
+        if (product) {
+            res.render('user/userHome', { product, productCategory, banner, user, cartCount })
         }
-        else{
-            res.render('user/userHome', {   productCategory , banner , user , cartCount , error: 'no product found'})
+        else {
+            res.render('user/userHome', { productCategory, banner, user, cartCount, error: 'no product found' })
 
         }
 
-    
+
     })
 
 

@@ -42,7 +42,7 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3>
-						<span style="color:crimson">{{error}}</span>
+						<span style="color:crimson" id="error">{{error}}</span>
 						<form class="row login_form" action="/loginSubmit" method="post" id="contactForm" >
 							<div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="email" name="email" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'email'" onkeyup="requireEmail()" required>
@@ -102,6 +102,16 @@
 
 
 	</script>
+
+	<script>
+  setTimeout (() => {
+    const urlWithoutError = window.location.href.replace(/[\?&]error=[^&]+/, '');
+  
+  // Modify the URL without refreshing the page
+  window.history.replaceState({}, document.title, urlWithoutError);
+    document.getElementById('error').style.display='none'
+  },4000)
+</script>
 
 
 	
