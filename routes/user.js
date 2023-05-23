@@ -5,7 +5,6 @@ var productHelpers=require('../helpers/product-helpers');
 var userHelpers=require('../helpers/user-helpers');
 const client = require("twilio")
 const Swal = require('sweetalert2')
-// const stripe = require("./stripe")
 const {userSession} = require('../config/session')
 
 
@@ -13,10 +12,8 @@ const {userHome,userLogin,signupPage,loginButton,loginHome,goToHome,signupButton
        userProfile , submitAddress , fillAddress , buyNow , productPagination , productDetail , cartProductDetails , myOrderss , orderCancel , placedOrderCancel , returnOrder , verifyPayment , otpLogin , mobileSubmit , otpSubmit , forgotPassword , mobileNumberSubmit , newPasswordSubmit , 
        addNewAddress , wallet  , checkCoupen , coupenVerify , filterCategory , searchProduct , sessionCheck} = require('../Controller/user-controller');
 const { route } = require('./admin');
-// const { route } = require('./admin');
 
 
-/* GET home page. */
 router.get('/',userHome) 
 
 router.get('/login',userLogin)
@@ -35,9 +32,10 @@ router.post('/signup',signupButton)
 
 router.get('/logout',logoutButton)
 
-router.post('/product-details',productDetails)
 
-router.get('/product-detail' , productDetail)
+
+
+// ------------------------ cart --------------------
 
 router.get('/productDetails' , cartProductDetails)
 
@@ -48,6 +46,13 @@ router.get('/add-to-cart/:id',verifyLogin,addToCart)
 router.post('/changeProductQuantity',changeQuantity)
 
 router.post('/removeCartProduct',removeProduct)
+
+// ------------------- end ----------------------
+
+
+
+
+// -------------------------- order --------------------------
 
 router.get('/checkout',verifyLogin,proceedToCheckout)
 
@@ -61,27 +66,55 @@ router.get('/orderTables',verifyLogin,orderTable)
 
 router.get('/my-order',verifyLogin,myOrder)
 
-router.get('/addToCart-ProductDetails', verifyLogin,addToCartProductDetails)
+router.get('/orderDetails' ,verifyLogin, myOrderss)
+
+// ----------------------- end ------------------------------
+
+
+// --------------------- profile -------------------
 
 router.get('/profile' , verifyLogin,userProfile)
 
-router.post('/submit' , submitAddress)
+router.post('/verify-payment' , verifyPayment)
 
-router.post('/fillAddress' , fillAddress)
+// -------------------- end -----------------------
+
+
+
+
+
+// ------------------------- single product -----------------------
+
+router.post('/product-details',productDetails)
+
+router.get('/product-detail' , productDetail)
+
+router.get('/addToCart-ProductDetails', verifyLogin,addToCartProductDetails)
 
 router.get('/buyNow' , verifyLogin ,buyNow)
 
-router.get('/productPagination', productPagination)
+// ------------------------ end ---------------------
 
-router.get('/orderDetails' ,verifyLogin, myOrderss)
+
+
+
+
+// ---------------- cancel and return order --------------------------
 
 router.get('/cancelorder/:id' , orderCancel)
 
-router.post('/placedordercancel/:id' , placedOrderCancel)
-
 router.post('/returnorder/:id' , returnOrder)
 
-router.post('/verify-payment' , verifyPayment)
+router.post('/placedordercancel/:id' , placedOrderCancel)
+
+// ------------------------- end ---------------------------------
+
+
+
+
+
+
+// ------------------------- forgot password and otp -------------------------
 
 router.get('/otp-login' , otpLogin)
 
@@ -95,7 +128,26 @@ router.post('/number-submit' , mobileNumberSubmit)
 
 router.post('/password-submit' , newPasswordSubmit)
 
+// ---------------------- end -------------------------------------
+
+
+
+
+
+// --------------------------- address ---------------------------
+
+router.post('/submit' , submitAddress)
+
+router.post('/fillAddress' , fillAddress)
+
 router.get('/addAddress' ,verifyLogin, addNewAddress)
+
+// ----------------------- end ---------------------------
+
+
+
+
+// --------------------- coupen and wallet -------------------
 
 router.get('/wallet' ,verifyLogin, wallet)
 
@@ -103,9 +155,21 @@ router.get('/checkCoupen' , verifyLogin,checkCoupen)
 
 router.post('/coupen-verify' , coupenVerify)
 
+// -------------------- end ------------------------
+
+
+
+
+
+// ---------------------- search filter and pagination --------------------------
+
 router.post('/filter' , filterCategory)
 
 router.post('/search' , searchProduct)
+
+router.get('/productPagination', productPagination)
+
+// -------------------- end -------------------------
 
 
 

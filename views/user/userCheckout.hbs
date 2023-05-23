@@ -388,11 +388,11 @@
             method: 'post',
             success: (response) => {
                 if (response.verify) {
-                    document.getElementById('totalAmount').innerHTML = response.amount
+                    document.getElementById('totalAmount').innerHTML ='₹ ' +response.amount
                     document.getElementById("Details").hidden = false
-                    document.getElementById('totalPrice').innerHTML = response.originalPrice
-                    document.getElementById('discountPrice').innerHTML = response.discountAmount
-                    document.getElementById('savedPrice').innerHTML = response.savedAmount
+                    document.getElementById('totalPrice').innerHTML = '₹ ' +response.originalPrice
+                    document.getElementById('discountPrice').innerHTML ='₹ ' + response.discountAmount
+                    document.getElementById('savedPrice').innerHTML ='₹ ' + response.savedAmount
                 }
                 else {
                     if (response.invalidDate) {

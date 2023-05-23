@@ -30,6 +30,9 @@ const { orderTable } = require('../Controller/user-controller');
 
 
 
+
+// ----------------- login and dashboard --------------------------
+
 router.get('/login',adminLogin),
 
 router.post('/adminlogin',validation),
@@ -38,11 +41,25 @@ router.get('/',adminSession,adminHome),
 
 router.get('/signout',signOut),
 
+// ---------------------------- end -------------------------
+
+
+
+// ------------------------ user table -----------------------
+
 router.get('/userTable',adminSession,userTable),
 
 router.get('/blockuser/:id',adminSession,block),
 
 router.get('/unblockuser/:id',adminSession,unblock),
+
+// ----------------------- end ---------------------------
+
+
+
+
+
+// ------------------------ product table --------------------------------
 
 router.get('/productTable',adminSession,productTable),
 
@@ -56,11 +73,29 @@ router.post('/edit-product/:id',editProductSubmit)
 
 router.get('/delete-product/:id',adminSession,removeProduct)
 
+// ------------------------- end --------------------------------
+
+
+
+
+
+// ---------------------- order management ------------------------
+
 router.get('/orderTable',adminSession,getOrders)
 
 router.get('/view-product',adminSession,viewOrderProduct)
 
 router.post('/cancel-product',cancelProduct)
+
+router.post('/product-status' , productStatus)
+
+//  ------------------------- end --------------------------
+
+
+
+
+
+// ----------------------- category ------------------------------
 
 router.get('/category' , adminSession,categoryManagement)
 
@@ -68,37 +103,82 @@ router.get('/add-category' ,adminSession, addCategory)
 
 router.post('/addCategory-Submit' , addCategorySubmit)
 
-router.post('/product-status' , productStatus)
-
 router.post('/edit-category' , editCategory)
 
 router.post('/edit-category/:id' , editCategorySubmit)
 
 router.get('/delete-category/:id' ,adminSession, deleteCategory)
 
+// --------------------------- end --------------------------
+
+
+
+
+
+
+// -------------------------- offer management -------------------------
+
 router.get('/offer' ,adminSession, viewOffer)
 
 router.post('/addcoupon' , addCoupenPost)
+
+router.get('/delete-coupen/:id' ,adminSession, removeCoupen)
+
+// ---------------------------- end ---------------------------------
+
+
+
+
+
+// ---------------- product offer -----------------------
 
 router.get('/productOffer' ,adminSession, productCoupen)
 
 router.post('/addProductOffer/:id' , productOfferPost)
 
-router.get('/delete-coupen/:id' ,adminSession, removeCoupen)
+// ----------------- end --------------------------
+
+
+
+
+
+// --------------- category coupen ---------------
 
 router.get('/categoryOffer' , adminSession,categoryCoupen)
 
 router.post('/addCategoryCoupon' , categoryOfferPost)
 
-router.get('/admin-Forgot-Password' ,adminSession, adminForgotPassword)
+// --------------------- end -----------------
+
+
+
+
+
+// ------------------- forgot password -------------------------
+
+router.get('/admin-Forgot-Password' , adminForgotPassword)
 
 router.post('/mobile-submit' , mobileSubmitPost)
 
 router.post('/newPassword-submit' , NewPasswordPost)
 
+// ------------------- end -----------------------
+
+
+
+
+// --------------------- inventory management ------------------------
+
 router.get('/inventory' ,adminSession, inventoryManagement)
 
 router.post('/edit-stock/:id' , editStockPost)
+
+// ------------------- end -----------------------
+
+
+
+
+//-------------------- banner management --------------------
 
 router.get('/banner' ,adminSession, bannerManagement)
 
@@ -108,9 +188,7 @@ router.post('/addBannerSubmit' , upload.fields( [ { name : 'bannerImage1' , maxC
 
 router.get('/delete-banner/:id'  , adminSession,deleteBanner)
 
-router.get('/unlistProduct/:id' ,adminSession, unlistProduct)
-
-router.get('/listProduct/:id' ,adminSession, listProduct)
+// ------------------ end -------------------------
 
 
 

@@ -27,7 +27,6 @@ module.exports = {
 
     validation (req , res , next) {
         adminHelpers.adminLoginPost(req.body).then((response) => {
-            console.log(response , "this is responseeeeeeeeeeeeeeeee");
             req.session.adminLoggin=true
             res.redirect('/admin')
         })

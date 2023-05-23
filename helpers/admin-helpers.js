@@ -78,16 +78,13 @@ module.exports = {
             })
         })
     },
-
+ 
 
 
     getYearlySalesGraph: () => {
         return new Promise(async (resolve, reject) => {
             try {
-                // Assuming you have properly initialized and connected the 'db' object
-                const collection = db.get().collection('ORDER_COLLECTION');
-
-                const sales = await collection.aggregate([
+                const sales =await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                     {
                         $project: {
                             date: 1,
@@ -110,7 +107,6 @@ module.exports = {
                         $limit: 7
                     }
                 ]).toArray();
-
                 resolve(sales);
             } catch (error) {
                 reject(error);
