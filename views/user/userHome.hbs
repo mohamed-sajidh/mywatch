@@ -1,6 +1,6 @@
 <!-- start banner Area -->
 
-<div id="carouselExampleControls" class="carousel slide" style=" width: 1500px; " data-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide"  data-ride="carousel">
 	<div class="carousel-inner">
 		{{#each banner}}
 		<div class="carousel-item{{#if @first}} active{{/if}}">
@@ -29,14 +29,16 @@
 </form>
 	{{/each}}
 
-
-
-<form action="/search" method="post">
-<div class="input-group" style="margin-top: -10px;">
-  <input type="search" name="name" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="margin-left: 1250px; ">
+<div style="margin-bottom: 50px;">
+	<form action="/search" method="post">
+<div class=" d-flex" >
+  <input style="width:35%" type="search" name="name" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" >
   <button type="submit" class="btn btn-outline-primary"  >search</button>
 </div>
 </form>
+</div>
+
+
   <span style="color:crimson">{{error}}</span>
 
 
@@ -86,10 +88,10 @@
 								</a>
 
 
-								<a class="social-info">
+								{{!-- <a class="social-info">
 									<span class="lnr lnr-heart"></span>
 									<p class="hover-text">Wishlist</p>
-								</a>
+								</a> --}}
 
 
 
